@@ -7,7 +7,7 @@
 
 A lightweight, customizable HTML5 video player leveraging Cloudflare R2 and HLS streaming for high-quality playback with advanced controls.
 
-![Screenshot](https://r2-player.fernandodilland.com/screenshot.png)
+![Screenshot](/src/img.webp)
 [Try the Demo](https://r2-player.fernandodilland.com/index.html)
 
 ## Dependencies

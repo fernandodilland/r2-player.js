@@ -1,6 +1,6 @@
 {
 	"name": "r2-player.js",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Video player based on files in a Cloudflare R2 bucket, featuring video thumbnails, lazy loading, and multiple quality options.",
 	"main": "dist/r2-player.min.js",
 	"scripts": {
