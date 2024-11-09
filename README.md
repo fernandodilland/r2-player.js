@@ -54,7 +54,7 @@ npm install r2-player.js
 ### Script Tag
 
 ```html
-<script src="https://unpkg.com/r2-player.js/dist/r2-player.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/r2-player.js/dist/r2-player.min.js"></script>
 ```
 
 ## Usage
