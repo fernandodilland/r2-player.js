@@ -1,6 +1,6 @@
 {
 	"name": "r2-player.js",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Video player based on files in a Cloudflare R2 bucket, featuring video thumbnails, lazy loading, and multiple quality options.",
 	"main": "r2-player.js",
 	"scripts": {
@@ -25,9 +25,6 @@
 	"bugs": {
 	  "url": "https://github.com/fernandodilland/r2-player.js/issues"
 	},
-	"homepage": "https://github.com/fernandodilland/r2-player.js#readme",
-	"dependencies": {
-	  "hls.js": "^1.5.17"
-	}
+	"homepage": "https://github.com/fernandodilland/r2-player.js#readme"
   }
   
