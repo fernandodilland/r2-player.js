@@ -224,7 +224,6 @@ class R2Player extends HTMLElement {
                 border-radius: 2px;
             }
 
-            /* Remove hover CSS, manage via JavaScript */
             /* Quality Menu */
             .quality-menu {
                 position: absolute;
@@ -300,10 +299,16 @@ class R2Player extends HTMLElement {
         // Bind methods
         this.initializePlayer = this.initializePlayer.bind(this);
         this.initializeControls = this.initializeControls.bind(this);
+        this.loadHlsScript = this.loadHlsScript.bind(this);
 
         // Mouse inactivity timer
         this.mouseActivityTimeout = null;
         this.controlsVisible = true;
+
+        // Static property to track Hls.js loading
+        if (!R2Player.hlsLoading) {
+            R2Player.hlsLoading = null;
+        }
     }
 
     // Observe attributes for changes
@@ -313,7 +318,7 @@ class R2Player extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) return;
-        if (['src', 'width', 'height', 'autoplay', 'controls-visible', 'muted', 'loop', 'thumbnails', 'volume', 'quality'].includes(name)) {
+        if (R2Player.observedAttributes.includes(name)) {
             this.initializePlayer();
         }
     }
@@ -360,6 +365,34 @@ class R2Player extends HTMLElement {
         }
     }
 
+    // Method to load Hls.js dynamically
+    loadHlsScript() {
+        if (window.Hls) {
+            return Promise.resolve();
+        }
+
+        if (R2Player.hlsLoading) {
+            return R2Player.hlsLoading;
+        }
+
+        R2Player.hlsLoading = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+            script.async = true;
+            script.onload = () => {
+                if (window.Hls) {
+                    resolve();
+                } else {
+                    reject(new Error('Hls.js failed to load.'));
+                }
+            };
+            script.onerror = () => reject(new Error('Failed to load Hls.js script.'));
+            document.head.appendChild(script);
+        });
+
+        return R2Player.hlsLoading;
+    }
+
     initializePlayer() {
         if (!this.src) {
             console.error('No source provided for R2Player.');
@@ -376,62 +409,72 @@ class R2Player extends HTMLElement {
         // Clean up existing HLS instance if any
         if (this.hls) {
             this.hls.destroy();
+            this.hls = null;
         }
 
-        if (window.Hls && Hls.isSupported()) {
-            this.hls = new Hls({
-                autoStartLoad: true,
-                startPosition: -1,
-                maxBufferLength: 30,
-                debug: false,
-            });
-            this.hls.loadSource(videoSrc);
-            this.hls.attachMedia(this.video);
-            this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                this.loadingSpinner.style.display = 'none';
-                if (this.autoPlay) {
-                    this.video.play();
+        // Load Hls.js if not already loaded
+        this.loadHlsScript()
+            .then(() => {
+                if (window.Hls && window.Hls.isSupported()) {
+                    this.hls = new window.Hls({
+                        autoStartLoad: true,
+                        startPosition: -1,
+                        maxBufferLength: 30,
+                        debug: false,
+                    });
+                    this.hls.loadSource(videoSrc);
+                    this.hls.attachMedia(this.video);
+                    this.hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+                        this.loadingSpinner.style.display = 'none';
+                        if (this.autoPlay) {
+                            this.video.play();
+                        }
+                        // Retrieve available quality levels
+                        const levels = this.hls.levels;
+                        this.availableQualities = levels.map((level, index) => ({
+                            index: index,
+                            height: level.height,
+                            bitrate: level.bitrate,
+                        }));
+                        this.populateQualityMenu();
+                        this.setInitialQuality();
+                    });
+                    this.hls.on(window.Hls.Events.LEVEL_SWITCHED, (event, data) => {
+                        this.currentQuality = data.level;
+                        this.updateQualityButton();
+                    });
+                    this.hls.on(window.Hls.Events.ERROR, (event, data) => {
+                        console.error('HLS.js error:', data);
+                        this.loadingSpinner.style.display = 'none';
+                    });
+                } else if (this.video.canPlayType('application/vnd.apple.mpegurl')) {
+                    this.video.src = videoSrc;
+                    this.video.addEventListener('loadedmetadata', () => {
+                        this.loadingSpinner.style.display = 'none';
+                        if (this.autoPlay) {
+                            this.video.play();
+                        }
+                        // Note: Safari does not expose available quality levels directly
+                        this.availableQualities = [];
+                        this.populateQualityMenu();
+                    });
+                } else {
+                    alert('Your browser does not support HLS.');
+                    this.loadingSpinner.style.display = 'none';
                 }
-                // Retrieve available quality levels
-                const levels = this.hls.levels;
-                this.availableQualities = levels.map((level, index) => ({
-                    index: index,
-                    height: level.height,
-                    bitrate: level.bitrate,
-                }));
-                this.populateQualityMenu();
-                this.setInitialQuality();
-            });
-            this.hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
-                this.currentQuality = data.level;
-                this.updateQualityButton();
-            });
-            this.hls.on(Hls.Events.ERROR, (event, data) => {
-                console.error('HLS.js error:', data);
-                this.loadingSpinner.style.display = 'none';
-            });
-        } else if (this.video.canPlayType('application/vnd.apple.mpegurl')) {
-            this.video.src = videoSrc;
-            this.video.addEventListener('loadedmetadata', () => {
-                this.loadingSpinner.style.display = 'none';
-                if (this.autoPlay) {
-                    this.video.play();
-                }
-                // Note: Safari does not expose available quality levels directly
-                this.availableQualities = [];
-                this.populateQualityMenu();
-            });
-        } else {
-            alert('Your browser does not support HLS.');
-            this.loadingSpinner.style.display = 'none';
-        }
 
-        // Handle thumbnails
-        if (this.thumbnailEnabled) {
-            this.setupThumbnails(thumbnailsBase);
-        } else {
-            this.thumbnailPreview.style.display = 'none';
-        }
+                // Handle thumbnails
+                if (this.thumbnailEnabled) {
+                    this.setupThumbnails(thumbnailsBase);
+                } else {
+                    this.thumbnailPreview.style.display = 'none';
+                }
+            })
+            .catch((error) => {
+                console.error('Failed to load Hls.js:', error);
+                this.loadingSpinner.style.display = 'none';
+                alert('Failed to load video playback library.');
+            });
     }
 
     initializeControls() {
