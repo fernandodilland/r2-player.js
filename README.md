@@ -39,6 +39,7 @@ This library uses the [hls.js](https://github.com/video-dev/hls.js) library to p
 - [ ] Update typography for quality section.
 - [ ] Enable keyboard shortcuts (left/right for seeking, up/down for volume).
 - [ ] Enable "Enter" key to play/pause video.
+- [ ] Fix full-screen display on mobile devices.
 
 ## Installation
 
