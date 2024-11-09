@@ -14,7 +14,6 @@ A lightweight, customizable HTML5 video player leveraging Cloudflare R2 and HLS 
 
 This library uses the [hls.js](https://github.com/video-dev/hls.js) library to provide HLS streaming support in browsers that do not natively support HLS playback. `hls.js` is automatically included when installing `r2-player.js`.
 
-
 ## Features
 
 - HLS Streaming: Smooth playback for HLS video streams.
@@ -23,6 +22,25 @@ This library uses the [hls.js](https://github.com/video-dev/hls.js) library to p
 - Responsive: Works on various screens and devices.
 - Easy Style Customization: Customize appearance with CSS.
 - Autoplay, Loop, and Mute: Control playback behavior.
+
+# Todo List for GitHub Repository
+
+## Completed Tasks
+- ~~Library (base).~~
+- ~~Configure `hls.js` dependency.~~
+- ~~Playback navigation bar.~~
+- ~~Play and pause video.~~
+- ~~Video thumbnails on hover.~~
+- ~~Configurable settings (width, height, autoplay, controls-visible, muted, loop, thumbnails, volume, quality).~~
+- ~~Publish on npmjs.com.~~
+
+## Pending Tasks
+- [ ] Fix volume control bar.
+- [ ] Make color configurable.
+- [ ] Improve playback bar design.
+- [ ] Update typography for quality section.
+- [ ] Enable keyboard shortcuts (left/right for seeking, up/down for volume).
+- [ ] Enable "Enter" key to play/pause video.
 
 ## Installation
 
