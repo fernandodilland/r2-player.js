@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>R2 Player Demo</title>
+	<!-- Include the HLS.js library from a CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	<!-- Include the R2 Player library -->
+	<script src="r2-player.js" defer></script>
+	<style>
+		/* Optional styles for the page */
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #333;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+	</style>
+</head>
+<body>
+	<!-- Use of the R2 Player component -->
+	<r2-player
+		src="https://r2-player.fernandodilland.com/demo"
+		width="840"
+		height="472"
+		autoplay
+		controls-visible="false"
+		muted
+		loop
+		thumbnails="true"
+		volume="1.0"
+		quality="auto"
+	></r2-player>
+</body>
+</html>

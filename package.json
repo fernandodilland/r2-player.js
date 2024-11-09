@@ -1,0 +1,33 @@
+{
+	"name": "r2-player.js",
+	"version": "0.1.0",
+	"description": "Video player based on files in a Cloudflare R2 bucket, featuring video thumbnails, lazy loading, and multiple quality options.",
+	"main": "r2-player.js",
+	"scripts": {
+	  "test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "git+https://github.com/fernandodilland/r2-player.js.git"
+	},
+	"keywords": [
+	  "cloudflare",
+	  "r2",
+	  "bucket",
+	  "video",
+	  "player",
+	  "hls",
+	  "hls.js",
+	  "streaming"
+	],
+	"author": "Fernando Dilland",
+	"license": "MIT",
+	"bugs": {
+	  "url": "https://github.com/fernandodilland/r2-player.js/issues"
+	},
+	"homepage": "https://github.com/fernandodilland/r2-player.js#readme",
+	"dependencies": {
+	  "hls.js": "^1.5.17"
+	}
+  }
+  
