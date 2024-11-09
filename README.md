@@ -23,8 +23,6 @@ This library uses the [hls.js](https://github.com/video-dev/hls.js) library to p
 - Easy Style Customization: Customize appearance with CSS.
 - Autoplay, Loop, and Mute: Control playback behavior.
 
-# Todo List for GitHub Repository
-
 ## Completed Tasks
 - ~~Library (base).~~
 - ~~Configure `hls.js` dependency.~~
