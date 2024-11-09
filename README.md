@@ -24,13 +24,13 @@ This library uses the [hls.js](https://github.com/video-dev/hls.js) library to p
 - Autoplay, Loop, and Mute: Control playback behavior.
 
 ## Completed Tasks
-- [x] Library (base).
-- [x] Configure `hls.js` dependency.
-- [x] Playback navigation bar.
-- [x] Play and pause video.
-- [x] Video thumbnails on hover.
-- [x] Configurable settings (width, height, autoplay, controls-visible, muted, loop, thumbnails, volume, quality).
-- [x] Publish on npmjs.com.
+- [x] ~~Library (base).~~
+- [x] ~~Configure `hls.js` dependency.~~
+- [x] ~~Playback navigation bar.~~
+- [x] ~~Play and pause video.~~
+- [x] ~~Video thumbnails on hover.~~
+- [x] ~~Configurable settings (width, height, autoplay, controls-visible, muted, loop, thumbnails, volume, quality).~~
+- [x] ~~Publish on npmjs.com.~~
 
 ## Pending Tasks
 - [ ] Fix volume control bar.
