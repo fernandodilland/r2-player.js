@@ -51,6 +51,39 @@ Install via npm or add directly to HTML:
 npm install r2-player.js
 ```
 
+## Recommended Configuration in Cloudflare R2
+
+Within the bucket (in the Cloudflare dashboard), go to Settings > CORS policy > Edit CORS policy
+
+The following configuration is recommended:
+
+```json
+[
+  {
+    "AllowedOrigins": [
+      "https://yourdomain.com"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "AllowedHeaders": [
+      "Range",
+      "Content-Type",
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Headers"
+    ],
+    "ExposeHeaders": [
+      "Content-Type",
+      "Access-Control-Allow-Origin",
+      "ETag",
+      "Content-Length"
+    ],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
+
 ### Script Tag
 
 ```html
