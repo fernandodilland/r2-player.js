@@ -88,6 +88,8 @@ Consider changing "https://yourdomain.com" or using "*" (less secure) to specify
 
 ### Script Tag
 
+The following script tag is recommended for use with a CDN or by downloading it as a .js file (by going to https://cdn.jsdelivr.net/npm/r2-player.js/dist/r2-player.min.js) to utilize the features of this library.
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/r2-player.js/dist/r2-player.min.js"></script>
 ```
