@@ -10,6 +10,8 @@ A lightweight, customizable HTML5 video player leveraging Cloudflare R2 and HLS 
 ![Screenshot](/src/img.webp)
 [Try the Demo](https://r2-player.fernandodilland.com/index.html)
 
+You need to have the HLS files and folders, I have created this repository to convert normal videos to this format including thumbnails, it is a manual prototype: [GitHub](https://github.com/fernandodilland/hls-toolkit).
+
 ## Dependencies
 
 This library uses the [hls.js](https://github.com/video-dev/hls.js) library to provide HLS streaming support in browsers that do not natively support HLS playback. `hls.js` is automatically included when installing `r2-player.js`.
