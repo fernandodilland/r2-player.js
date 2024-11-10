@@ -84,6 +84,8 @@ The following configuration is recommended:
 ]
 ```
 
+Consider changing "https://yourdomain.com" or using "*" (less secure) to specify the exact domain or subdomain where the videos will be displayed.
+
 ### Script Tag
 
 ```html
